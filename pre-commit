@@ -1,17 +1,4 @@
 #!/bin/sh
 
-local_branch=$(git branch | grep '*' | sed 's/* //')
-
-# Ignore rebase branch
-if [ local_branch != '(no branch)' ]
-then
-  valid_branch_regex="(^(feature|feat|bugfix|fix|refactor|doc|chore|tech|test|debug|hotfix)\/[0-9]+\/[A-Za-z0-9._-]+)"
-  message="There is something wrong with your branch name. Branch names in this project must adhere to this contract: $valid_branch_regex. eg: feature/999/description Your commit will be rejected. You should rename your branch to a valid name and try again."
-  if [[ ! $local_branch =~ $valid_branch_regex ]]
-  then
-      echo "$message"
-      exit 1
-  fi
-fi
-
-exit 0
+./actions/branch-name
+./actions/golangci-lint
