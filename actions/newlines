@@ -1,12 +1,14 @@
 #!/bin/sh
 
-files=$(find . -type f -print0 \( -exec [ -f {}/.git ] \; -prune \) -o \( -name .git -prune \) | xargs -P 4 -0 -L1 bash -c 'test "$(tail -c 1 "$0")" && echo $0 ')
+files=$(find . -type f -not -path "./.git/*" -prune -not -path "./vendor/*" -prune)
 
 for f in $files; do
-  if ! echo $f | grep '\|vendor\|.idea' >/dev/null; then
-    if file $f | grep 'ASCII\|UTF-8'; then
-      echo "Adding newline to $f"
-      echo "" >>$f
-    fi
+  if ! echo $f | grep '\|vendor\|.idea\|.git/' >/dev/null; then
+    if file $f | grep 'ASCII\|UTF-8' >/dev/null; then
+      if test "$(tail -c 1 "$f")" >/dev/null; then
+        echo "Adding newline to $f"
+        echo "" >>$f
+      fi
+    fi &
   fi
 done
