@@ -1,3 +1,4 @@
 #!/bin/sh
+# no-deletemes will fail if there are any strings matching deleteme; good for stopping you committing debugging code
 
 ! grep -rnwi '.' -e 'deleteme'

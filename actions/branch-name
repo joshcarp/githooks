@@ -1,5 +1,5 @@
 #!/bin/sh
-
+# branch-name fails if the branch name isn't in the form <type>/<issue number>/<desc>
 local_branch=$(git branch | grep '*' | sed 's/* //')
 
 # Ignore rebase branch

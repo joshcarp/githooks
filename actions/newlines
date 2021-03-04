@@ -1,4 +1,5 @@
 #!/bin/sh
+# newlines will append a newline to any text not in .git or vendor if a trailing newline is missing
 
 files=$(find . -type f -not -path "./.git/*" -prune -not -path "./vendor/*" -prune)
 

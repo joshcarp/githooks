@@ -1,4 +1,5 @@
 #!/bin/sh
+# golangci-lint will run if there is a go.mod in the directory it is executed from
 
 if test -f "go.mod"; then
     golangci-lint run
